@@ -28,7 +28,35 @@ const setup = () => {
 
 
 const click = () => {
+  $(".card").on(("click"), function () {
 
+    let firstCard = undefined
+    let secondCard = undefined
+
+    $(this).toggleClass("flip");
+
+    if (!firstCard)
+      firstCard = $(this).find(".front_face")[0]
+    else {
+      secondCard = $(this).find(".front_face")[0]
+      console.log(firstCard, secondCard);
+      if (
+        firstCard.src
+        ==
+        secondCard.src
+      ) {
+        console.log("match")
+        $(`#${firstCard.id}`).parent().off("click")
+        $(`#${secondCard.id}`).parent().off("click")
+      } else {
+        console.log("no match")
+        setTimeout(() => {
+          $(`#${firstCard.id}`).parent().toggleClass("flip")
+          $(`#${secondCard.id}`).parent().toggleClass("flip")
+        }, 1000)
+      }
+    }
+  });
 }
 
 const cards = () => {
@@ -74,35 +102,7 @@ const cards = () => {
   $(".game_grid").html(html);
   $(".game_grid").hide();
 
-  $(".card").on(("click"), function () {
-
-    let firstCard = undefined
-    let secondCard = undefined
-
-    $(this).toggleClass("flip");
-
-    if (!firstCard)
-      firstCard = $(this).find(".front_face")[0]
-    else {
-      secondCard = $(this).find(".front_face")[0]
-      console.log(firstCard, secondCard);
-      if (
-        firstCard.src
-        ==
-        secondCard.src
-      ) {
-        console.log("match")
-        $(`#${firstCard.id}`).parent().off("click")
-        $(`#${secondCard.id}`).parent().off("click")
-      } else {
-        console.log("no match")
-        setTimeout(() => {
-          $(`#${firstCard.id}`).parent().toggleClass("flip")
-          $(`#${secondCard.id}`).parent().toggleClass("flip")
-        }, 1000)
-      }
-    }
-  });
+  click();
 }
 
 const start = () => {
