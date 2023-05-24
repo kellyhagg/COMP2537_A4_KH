@@ -82,10 +82,11 @@ const click = () => {
       }
     }
 
-    if (numMatches == totalPairs) {
-      alert("You win!");
-      setup();
-      return;
+    if (numMatches === totalPairs) {
+      setTimeout(() => {
+        alert("You win!");
+        setup();
+      }, 500);
     }
   });
 };
