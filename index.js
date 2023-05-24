@@ -37,34 +37,39 @@ const setup = () => {
 
 const click = () => {
   $(".card").on("click", function () {
+    if ($(this).hasClass("flip") || $(this).hasClass("disabled")) {
+      // Ignore clicks on already flipped or disabled cards
+      return;
+    }
+
     numClicks++;
     $(".headerNumClicks").html(`Number of Clicks: ${numClicks}`);
     $(this).toggleClass("flip");
 
     if (!firstCard) {
       firstCard = $(this).find(".front_face")[0];
-    } else {
+    } else if (!secondCard) {
       secondCard = $(this).find(".front_face")[0];
       console.log(firstCard, secondCard);
 
-      if (firstCard && secondCard && firstCard.src === secondCard.src) {
+      if (firstCard.src === secondCard.src) {
         console.log("match");
         numMatches++;
         numRemainingPairs--;
         $(".headerMatches").html(`Number of Matches: ${numMatches}`);
-        $(`#${firstCard.id}`).parent().off("click");
-        $(`#${secondCard.id}`).parent().off("click");
+        $(`#${firstCard.id}`).parent().addClass("disabled");
+        $(`#${secondCard.id}`).parent().addClass("disabled");
         firstCard = null;
         secondCard = null;
       } else {
         console.log("no match");
         setTimeout(() => {
           if (firstCard) {
-            $(`#${firstCard.id}`).parent().toggleClass("flip");
+            $(`#${firstCard.id}`).parent().removeClass("flip");
             firstCard = null;
           }
           if (secondCard) {
-            $(`#${secondCard.id}`).parent().toggleClass("flip");
+            $(`#${secondCard.id}`).parent().removeClass("flip");
             secondCard = null;
           }
         }, 1000);
@@ -75,6 +80,10 @@ const click = () => {
 
 
 const cards = () => {
+
+  firstCard = undefined;
+  secondCard = undefined;
+
   const imgNames = [
     "001.png", "002.png", "003.png", "001.png", "002.png", "003.png",
     "004.png", "005.png", "006.png", "004.png", "005.png", "006.png",
