@@ -49,6 +49,8 @@ const click = () => {
         $(".headerMatches").html(`Number of Matches: ${numMatches}`);
         $(`#${firstCard.id}`).parent().off("click");
         $(`#${secondCard.id}`).parent().off("click");
+        firstCard = null;
+        secondCard = null;
       } else {
         console.log("no match");
         setTimeout(() => {
