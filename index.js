@@ -16,6 +16,11 @@ const resetTimer = () => {
 };
 
 const setup = () => {
+
+  numClicks = 0;
+  numMatches = 0;
+  numRemainingPairs = totalPairs;
+
   $("#startBtn").show();
 
   cards();
