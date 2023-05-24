@@ -1,4 +1,7 @@
 
+let firstCard = undefined
+let secondCard = undefined
+
 var difficulty = "easy";
 var timeAllowed = 100;
 var timeElapsed = 0;
@@ -28,39 +31,41 @@ const setup = () => {
 
 
 const click = () => {
-  $(".card").on(("click"), function () {
-
-    let firstCard = undefined
-    let secondCard = undefined
-
+  $(".card").on("click", function () {
     numClicks++;
-    $(".headerNumClicks").html(`Number of Clicks: ${numClicks}`)
-
+    $(".headerNumClicks").html(`Number of Clicks: ${numClicks}`);
     $(this).toggleClass("flip");
 
-    if (!firstCard)
-      firstCard = $(this).find(".front_face")[0]
-    else {
-      secondCard = $(this).find(".front_face")[0]
+    if (!firstCard) {
+      firstCard = $(this).find(".front_face")[0];
+    } else {
+      secondCard = $(this).find(".front_face")[0];
       console.log(firstCard, secondCard);
-      if (
-        firstCard.src
-        ==
-        secondCard.src
-      ) {
-        console.log("match")
-        $(`#${firstCard.id}`).parent().off("click")
-        $(`#${secondCard.id}`).parent().off("click")
+
+      if (firstCard && secondCard && firstCard.src === secondCard.src) {
+        console.log("match");
+        numMatches++;
+        numRemainingPairs--;
+        $(".headerMatches").html(`Number of Matches: ${numMatches}`);
+        $(`#${firstCard.id}`).parent().off("click");
+        $(`#${secondCard.id}`).parent().off("click");
       } else {
-        console.log("no match")
+        console.log("no match");
         setTimeout(() => {
-          $(`#${firstCard.id}`).parent().toggleClass("flip")
-          $(`#${secondCard.id}`).parent().toggleClass("flip")
-        }, 1000)
+          if (firstCard) {
+            $(`#${firstCard.id}`).parent().toggleClass("flip");
+            firstCard = null;
+          }
+          if (secondCard) {
+            $(`#${secondCard.id}`).parent().toggleClass("flip");
+            secondCard = null;
+          }
+        }, 1000);
       }
     }
   });
-}
+};
+
 
 const cards = () => {
   const imgNames = [
