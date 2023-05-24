@@ -109,6 +109,24 @@ const click = () => {
   });
 };
 
+const flipAllCards = () => {
+  setTimeout(() => {
+    $(".card").toggleClass("flip");
+  }, 1000);
+  setTimeout(() => {
+    $(".card").toggleClass("flip");
+  }, 2000);
+};
+
+
+const powerup = () => {
+  console.log("powerup");
+  console.log(numClicks);
+  if (numClicks == 7 || numClicks == 15 || numClicks == 23) {
+    flipAllCards();
+  }
+};
+
 const cards = () => {
 
   firstCard = undefined;
@@ -146,7 +164,7 @@ const cards = () => {
   let html = "";
   for (let i = 0; i < numCards; i++) {
     html += `
-    <div class="card">
+    <div class="card" onclick=powerup()>
       <img id="img${i + 1}" class="front_face" src="${imgNames[i]}" alt="">
       <img class="back_face" src="back.webp" alt="">
     </div>
