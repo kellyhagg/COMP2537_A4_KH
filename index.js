@@ -1,9 +1,37 @@
 
 var difficulty = "easy";
+var timeAllowed = 100;
+var timeElapsed = 0;
+var totalPairs = 3;
+var numMatches = 0;
+var numRemainingPairs = totalPairs;
+var numClicks = 0;
 
 const setup = () => {
   $("#startBtn").show();
+
   cards();
+
+  let html = `
+  <h1 class="headerTotalPairs"> Total Number of Pairs: ${totalPairs} </h1>
+  <h1 class="headerMatches"> Number of Matches: ${numMatches} </h1>
+  <h1 class="headerRemainingPairs"> Number of Pairs Left: ${numRemainingPairs} </h1>
+  <h1 class="headerNumClicks"> Number of Clicks: ${numClicks} </h1>
+  <h1 class="headerTimeAllowed"> Time Allowed: ${timeAllowed} seconds</h1>
+  <h1 class="headerTimeElapsed"> Time Elapsed: <span id="timer">${timeElapsed}</span>
+ seconds!</h1>
+`;
+
+  $(".pokeHeader").html(html);
+
+  timeCounter(function () {
+    timeElapsed++;
+    $("#timer").html(timeElapsed);
+  }, 1000);
+}
+
+const click = () => {
+
 }
 
 const cards = () => {
@@ -18,13 +46,22 @@ const cards = () => {
 
   if (difficulty == "medium") {
     $(".game_grid").attr("id", "medium_grid");
+    timeAllowed = 300;
     numCards = 12;
+    totalPairs = 6;
+    numRemainingPairs = totalPairs;
   } else if (difficulty == "hard") {
     $(".game_grid").attr("id", "hard_grid");
+    timeAllowed = 200;
     numCards = 24;
+    totalPairs = 12;
+    numRemainingPairs = totalPairs;
   } else {
     $(".game_grid").attr("id", "easy_grid");
+    timeAllowed = 100;
     numCards = 6;
+    totalPairs = 3;
+    numRemainingPairs = totalPairs;
   }
 
   let html = "";
