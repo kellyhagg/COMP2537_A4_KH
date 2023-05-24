@@ -33,6 +33,9 @@ const click = () => {
     let firstCard = undefined
     let secondCard = undefined
 
+    numClicks++;
+    $(".headerNumClicks").html(`Number of Clicks: ${numClicks}`)
+
     $(this).toggleClass("flip");
 
     if (!firstCard)
