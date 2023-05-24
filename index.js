@@ -43,25 +43,26 @@ const setup = () => {
 const click = () => {
   $(".card").on("click", function () {
     if ($(this).hasClass("flip") || $(this).hasClass("disabled")) {
-      // Ignore clicks on already flipped or disabled cards
       return;
     }
 
     numClicks++;
     $(".headerNumClicks").html(`Number of Clicks: ${numClicks}`);
-    $(this).toggleClass("flip");
 
     if (!firstCard) {
       firstCard = $(this).find(".front_face")[0];
+      $(this).toggleClass("flip");
     } else if (!secondCard) {
       secondCard = $(this).find(".front_face")[0];
-      console.log(firstCard, secondCard);
+      $(this).toggleClass("flip");
 
       if (firstCard.src === secondCard.src) {
         console.log("match");
         numMatches++;
         numRemainingPairs--;
         $(".headerMatches").html(`Number of Matches: ${numMatches}`);
+        $(".headerRemainingPairs").html(`Number of Pairs Left: ${numRemainingPairs}`);
+
         $(`#${firstCard.id}`).parent().addClass("disabled");
         $(`#${secondCard.id}`).parent().addClass("disabled");
         firstCard = null;
@@ -80,8 +81,15 @@ const click = () => {
         }, 1000);
       }
     }
+
+    if (numMatches == totalPairs) {
+      alert("You win!");
+      setup();
+      return;
+    }
   });
 };
+
 
 
 const cards = () => {
