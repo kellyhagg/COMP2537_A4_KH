@@ -1,6 +1,7 @@
 
 let firstCard = undefined
 let secondCard = undefined
+let timerRunning = false;
 
 var difficulty = "easy";
 var timeAllowed = 100;
@@ -11,11 +12,6 @@ var numRemainingPairs = totalPairs;
 var numClicks = 0;
 
 var theme = "light";
-
-const resetTimer = () => {
-  timeElapsed = 0;
-  $("#timer").html(timeElapsed);
-};
 
 const setup = () => {
 
@@ -48,6 +44,10 @@ const setup = () => {
 }
 
 const start = () => {
+  if (timerRunning) {
+    return;
+  }
+
   $("#startBtn").hide();
   $(".game_grid").show();
   $(".themeBtns").show();
@@ -56,7 +56,10 @@ const start = () => {
     timeElapsed++;
     $("#timer").html(timeElapsed);
   }, 1000);
+
+  timerRunning = true;
 };
+
 
 const click = () => {
   $(".card").on("click", function () {
@@ -210,7 +213,6 @@ $(document).ready(() => {
     setup(difficulty);
     $(".game_grid").show();
     $(".themeBtns").show();
-    resetTimer();
   });
 
   $("#easyBtn").on("click", () => {
