@@ -36,7 +36,10 @@ const setup = () => {
   }
 
   $(".game_grid").html(html);
+}
 
+const start = () => {
+  $("#startBtn").hide();
 
   $(".card").on(("click"), function () {
     $(this).toggleClass("flip");
@@ -65,11 +68,14 @@ const setup = () => {
   });
 }
 
+
 $(document).ready(() => {
-  $("#startBtn").on("click", () => {
+  $("#startBtn").on(("click"), function () {
+    start();
   });
 
   $("#resetBtn").on("click", () => {
+    $("#startBtn").show();
     setup(difficulty);
   });
 
