@@ -44,14 +44,15 @@ const setup = () => {
 }
 
 const start = () => {
-  if (timerRunning) {
-    return;
-  }
+
 
   $("#startBtn").hide();
   $(".game_grid").show();
   $(".themeBtns").show();
 
+  if (timerRunning) {
+    return;
+  }
   let timerCounter = setInterval(function () {
     timeElapsed++;
     $("#timer").html(timeElapsed);
