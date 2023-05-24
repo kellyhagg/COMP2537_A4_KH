@@ -39,6 +39,16 @@ const setup = () => {
   timeElapsed = 0;
 }
 
+const start = () => {
+  $("#startBtn").hide();
+  $(".game_grid").show();
+  $(".themeBtns").show();
+
+  let timerCounter = setInterval(function () {
+    timeElapsed++;
+    $("#timer").html(timeElapsed);
+  }, 1000);
+};
 
 const click = () => {
   $(".card").on("click", function () {
@@ -91,8 +101,6 @@ const click = () => {
   });
 };
 
-
-
 const cards = () => {
 
   firstCard = undefined;
@@ -139,19 +147,12 @@ const cards = () => {
 
   $(".game_grid").html(html);
   $(".game_grid").hide();
+  $(".themeBtns").hide();
 
   click();
 }
 
-const start = () => {
-  $("#startBtn").hide();
-  $(".game_grid").show();
 
-  let timerCounter = setInterval(function () {
-    timeElapsed++;
-    $("#timer").html(timeElapsed);
-  }, 1000);
-}
 
 $(document).ready(() => {
   $("#startBtn").on(("click"), function () {
@@ -162,6 +163,7 @@ $(document).ready(() => {
     $("#startBtn").show();
     setup(difficulty);
     $(".game_grid").show();
+    $(".themeBtns").show();
     resetTimer();
   });
 
@@ -178,6 +180,26 @@ $(document).ready(() => {
   $("#hardBtn").on("click", () => {
     difficulty = "hard";
     setup();
+  });
+
+  $("#lightThemeBtn").on("click", () => {
+    $("body").css("background-color", "white");
+    $(".headerTotalPairs").css("color", "black");
+    $(".headerMatches").css("color", "black");
+    $(".headerRemainingPairs").css("color", "black");
+    $(".headerNumClicks").css("color", "black");
+    $(".headerTimeAllowed").css("color", "black");
+    $(".headerTimeElapsed").css("color", "black");
+  });
+
+  $("#darkThemeBtn").on("click", () => {
+    $("body").css("background-color", "black");
+    $(".headerTotalPairs").css("color", "white");
+    $(".headerMatches").css("color", "white");
+    $(".headerRemainingPairs").css("color", "white");
+    $(".headerNumClicks").css("color", "white");
+    $(".headerTimeAllowed").css("color", "white");
+    $(".headerTimeElapsed").css("color", "white");
   });
 
   setup();
