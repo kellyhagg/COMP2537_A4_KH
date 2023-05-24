@@ -10,6 +10,11 @@ var numMatches = 0;
 var numRemainingPairs = totalPairs;
 var numClicks = 0;
 
+const resetTimer = () => {
+  timeElapsed = 0;
+  $("#timer").html(timeElapsed);
+};
+
 const setup = () => {
   $("#startBtn").show();
 
@@ -123,11 +128,6 @@ const start = () => {
     timeElapsed++;
     $("#timer").html(timeElapsed);
   }, 1000);
-
-  const resetTimer = () => {
-    timeElapsed = 0;
-    $("#timer").html(timeElapsed);
-  };
 }
 
 $(document).ready(() => {
