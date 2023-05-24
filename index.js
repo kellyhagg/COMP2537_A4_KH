@@ -2,9 +2,11 @@
 var difficulty = "easy";
 
 const setup = () => {
-  let firstCard = undefined
-  let secondCard = undefined
+  $("#startBtn").show();
+  cards();
+}
 
+const cards = () => {
   const imgNames = [
     "001.png", "002.png", "003.png", "001.png", "002.png", "003.png",
     "004.png", "005.png", "006.png", "004.png", "005.png", "006.png",
@@ -36,12 +38,13 @@ const setup = () => {
   }
 
   $(".game_grid").html(html);
-}
-
-const start = () => {
-  $("#startBtn").hide();
+  $(".game_grid").hide();
 
   $(".card").on(("click"), function () {
+
+    let firstCard = undefined
+    let secondCard = undefined
+
     $(this).toggleClass("flip");
 
     if (!firstCard)
@@ -68,6 +71,10 @@ const start = () => {
   });
 }
 
+const start = () => {
+  $("#startBtn").hide();
+  $(".game_grid").show();
+}
 
 $(document).ready(() => {
   $("#startBtn").on(("click"), function () {
@@ -77,6 +84,7 @@ $(document).ready(() => {
   $("#resetBtn").on("click", () => {
     $("#startBtn").show();
     setup(difficulty);
+    $(".game_grid").show();
   });
 
   $("#easyBtn").on("click", () => {
