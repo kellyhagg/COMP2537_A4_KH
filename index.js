@@ -19,16 +19,13 @@ const setup = () => {
   <h1 class="headerNumClicks"> Number of Clicks: ${numClicks} </h1>
   <h1 class="headerTimeAllowed"> Time Allowed: ${timeAllowed} seconds</h1>
   <h1 class="headerTimeElapsed"> Time Elapsed: <span id="timer">${timeElapsed}</span>
- seconds!</h1>
-`;
+ seconds!</h1>`;
 
   $(".pokeHeader").html(html);
 
-  timeCounter(function () {
-    timeElapsed++;
-    $("#timer").html(timeElapsed);
-  }, 1000);
+  timeElapsed = 0;
 }
+
 
 const click = () => {
 
@@ -111,6 +108,16 @@ const cards = () => {
 const start = () => {
   $("#startBtn").hide();
   $(".game_grid").show();
+
+  let timerCounter = setInterval(function () {
+    timeElapsed++;
+    $("#timer").html(timeElapsed);
+  }, 1000);
+
+  const resetTimer = () => {
+    timeElapsed = 0;
+    $("#timer").html(timeElapsed);
+  };
 }
 
 $(document).ready(() => {
@@ -122,6 +129,7 @@ $(document).ready(() => {
     $("#startBtn").show();
     setup(difficulty);
     $(".game_grid").show();
+    resetTimer();
   });
 
   $("#easyBtn").on("click", () => {
