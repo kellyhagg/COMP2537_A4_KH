@@ -1,7 +1,7 @@
 
+var difficulty = "easy";
 
-
-const setup = (difficulty) => {
+const setup = () => {
   let firstCard = undefined
   let secondCard = undefined
 
@@ -66,17 +66,27 @@ const setup = (difficulty) => {
 }
 
 $(document).ready(() => {
+  $("#startBtn").on("click", () => {
+  });
+
+  $("#resetBtn").on("click", () => {
+    setup(difficulty);
+  });
+
   $("#easyBtn").on("click", () => {
-    setup("easy");
+    difficulty = "easy";
+    setup();
   });
 
   $("#mediumBtn").on("click", () => {
-    setup("medium");
+    difficulty = "medium";
+    setup();
   });
 
   $("#hardBtn").on("click", () => {
-    setup("hard");
+    difficulty = "hard";
+    setup();
   });
 
-  setup("easy");
+  setup();
 });
